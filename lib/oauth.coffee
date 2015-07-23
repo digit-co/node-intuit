@@ -1,5 +1,6 @@
 request = require "request"
 nonce = require("nonce")()
+{sign} = require("oauth-sign")
 Saml = require "./saml"
 
 SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"
@@ -51,8 +52,5 @@ module.exports = class OAuth
 
   sign: (method, url, done) ->
     @getToken (err, token, secret) =>
-      signatureBase = "#{method}&#{url}&#{serialize @_params()}"
-      key = "#{@options.consumerKey}&#{@options.consumerSecret}"
-      url = "#{signatureBase}"
-      hash = require("crypto").createHmac("sha1", key).update(url).digest ENCODING
-      done null, hash
+      signature = sign "HMAC-SHA1", method, url, @_params(), @options.consumerSecret, secret
+      done err, signature
