@@ -9,14 +9,31 @@ module.exports = class Request
     @oauth.sign method, url, (err, signature) ->
       return done err if err
       params =
-        uri: url
         method: method
+        uri: url
         headers:
           "Content-Type": "application/json"
           "Authentication": signature
       done err, params
 
-  get: (url, done) ->
+  get: (url, body, done) ->
     @_params "GET", url, (err, params) ->
+      return done err if err
+      request params, done
+
+  post: (url, body, done) ->
+    @_params "POST", url, (err, params) ->
+      return done err if err
+      params.body = body
+      request params, done
+
+  put: (url, body, done) ->
+    @_params "PUT", url, (err, params) ->
+      return done err if err
+      params.body = body
+      request params, done
+
+  delete: (url, body, done) ->
+    @_params "PUT", url, (err, params) ->
       return done err if err
       request params, done
