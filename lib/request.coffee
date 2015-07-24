@@ -34,6 +34,6 @@ module.exports = class Request
       request params, done
 
   delete: (url, body, done) ->
-    @_params "PUT", url, (err, params) ->
+    @_params "DELETE", url, (err, params) ->
       return done err if err
       request params, done
