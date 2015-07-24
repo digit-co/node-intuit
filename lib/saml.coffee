@@ -3,7 +3,7 @@ moment = require "moment" # TODO: remove this dependency
 
 ENCODING = "base64"
 
-class Saml
+module.exports = class Saml
   constructor: (@options) ->
     date = new Date
     now = date.toISOString()
@@ -22,5 +22,3 @@ class Saml
     assertionWithSignature = @assertion.replace /saml2:Issuer\>\<saml2:Subject/, "saml2:Issuer>#{signature}<saml2:Subject"
     assertionWithSignature = assertionWithSignature.replace /'/g, "\""
     return new Buffer(assertionWithSignature).toString ENCODING
-
-module.exports = Saml

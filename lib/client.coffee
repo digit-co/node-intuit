@@ -2,7 +2,6 @@ Request = require "./request"
 
 BASE_URL = "https://financialdatafeed.platform.intuit.com/v1"
 
-
 module.exports = class IntuitClient
   constructor: (@options) ->
 

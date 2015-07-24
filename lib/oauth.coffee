@@ -6,12 +6,6 @@ Saml = require "./saml"
 SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"
 ENCODING = "base64"
 
-serialize = (params) ->
-  str = []
-  for k, v of params
-    str.push "#{encodeURIComponent(k)}=#{encodeURIComponent(v)}"
-  return str.join("&")
-
 module.exports = class OAuth
   constructor: (@options) ->
     @saml = new Saml(@options).signAssertion()
