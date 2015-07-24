@@ -5,6 +5,8 @@ request = require "request"
 intuitClient = require "../"
 config = require "./config"
 intuit = intuitClient config
+helper = require "./helper"
+helper.stubOAuth()
 
 describe "Signed Request", ->
   before (done) ->

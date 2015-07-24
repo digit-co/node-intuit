@@ -3,6 +3,8 @@ bond = require "bondjs"
 request = require "request"
 OAuth = require "../../lib/oauth"
 config = require "../config"
+helper = require "../helper"
+helper.stubOAuth(3)
 
 describe "OAuth", ->
   describe "getToken", ->
@@ -26,9 +28,9 @@ describe "OAuth", ->
     it "should parse the response for a token and a secret", ->
       oauth = new OAuth config
       response = "oauth_token_secret=L63cI4q5UhP4mQzpCi1RHBMSLe2TNOaI98vxyIBL&oauth_token=qyprdcvDh5V2XoJRwYmxxdL5vOJ54Z6sNVohlNLQHyyhHaAy"
-      {token, secret} = oauth.parseResponse response
+      {token, tokenSecret} = oauth.parseResponse response
       assert token
-      assert secret
+      assert tokenSecret
 
   describe "sign", ->
     it "should return a signature", (done) ->

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "moment": "^2.10.3",
+    "nock": "^2.9.1",
     "node-uuid": "^1.4.3",
     "nonce": "^1.0.3",
     "oauth-sign": "^0.8.0",

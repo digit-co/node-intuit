@@ -11,20 +11,15 @@ module.exports = class OAuth
     @saml = new Saml(@options).signAssertion()
 
   parseResponse: (responseBody) ->
-    console.log unescape responseBody
-    [oauthToken, oauthSecret] = responseBody.split "&"
+    [oauthTokenSecret, oauthToken] = responseBody.split "&"
+    tokenSecret = oauthTokenSecret?.split("=")?[1]
     token = oauthToken?.split("=")?[1]
-    secret = oauthSecret?.split("=")?[1]
-    return {token, secret}
+    return {token, tokenSecret}
 
   request: (params, done) ->
-    # TODO: replace with a fixture
-    if process.env.NODE_ENV is "test"
-      return done null, {token: "token", secret: "secret"}
-    else
-      request params, (err, response, body) =>
-        return done err if err
-        done err, @parseResponse body
+    request params, (err, response, body) =>
+      return done err if err
+      done err, @parseResponse body
 
   getToken: (done) ->
     params =
@@ -35,16 +30,16 @@ module.exports = class OAuth
       form:
         saml_assertion: @saml
     @request params, (err, oauth) ->
-      done err, oauth?.token, oauth?.secret
+      done err, oauth?.token, oauth?.tokenSecret
 
   _params: ->
     "oauth_consumer_key": @options.consumerKey
     "oauth_nonce": nonce()
     "oauth_signature_method": "HMAC-SHA1"
-    "oauth_timestamp": Math.floor((new Date()).getTime() / 1000)
+    "oauth_timestamp": Math.floor(Date.now() / 1000).toString()
     "oauth_version": "1.0"
 
   sign: (method, url, done) ->
-    @getToken (err, token, secret) =>
-      signature = sign "HMAC-SHA1", method, url, @_params(), @options.consumerSecret, secret
+    @getToken (err, token, tokenSecret) =>
+      signature = sign "HMAC-SHA1", method, url, @_params(), @options.consumerSecret, tokenSecret
       done err, signature
