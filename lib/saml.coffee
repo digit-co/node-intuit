@@ -1,14 +1,16 @@
 uuid = require "node-uuid"
-moment = require "moment" # TODO: remove this dependency
 
 ENCODING = "base64"
+
+addMinutes = (date, minutes) ->
+  return new Date(date.getTime() + minutes * 60000)
 
 module.exports = class Saml
   constructor: (@options) ->
     date = new Date
     now = date.toISOString()
-    fiveMinutesAgo = moment(date).subtract(5, "minutes").toISOString()
-    tenMinutesFromNow = moment(date).add(10, "minutes").toISOString()
+    fiveMinutesAgo = addMinutes date, -5
+    tenMinutesFromNow = addMinutes date, 10
     @referenceId = uuid.v4().replace /-/g, ""
     @assertion =
       "<saml2:Assertion xmlns:saml2=\"urn:oasis:names:tc:SAML:2.0:assertion\" ID=\"_#{@referenceId}\" IssueInstant=\"#{now}\" Version=\"2.0\">" +
