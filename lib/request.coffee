@@ -3,7 +3,7 @@ OAuth = require "./oauth"
 
 module.exports = class Request
   constructor: (@options) ->
-    oauth = new OAuth @options
+    @oauth = new OAuth @options
 
   _params: (method, url, done) ->
     @oauth.sign method, url, (err, signature) ->
