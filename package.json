@@ -1,0 +1,26 @@
+{
+  "name": "node-intuit",
+  "version": "0.0.1",
+  "description": "Client for Intuit's Customer Account Data API",
+  "main": "index.js",
+  "scripts": {
+    "build": "coffee -c index.coffee && coffee -c lib/*.coffee",
+    "test": "npm run build && NODE_ENV=test mocha test"
+  },
+  "dependencies": {
+    "node-uuid": "^1.4.3",
+    "nonce": "^1.0.3",
+    "oauth-sign": "^0.8.0",
+    "request": "^2.59.0"
+  },
+  "devDependencies": {
+    "bondjs": "^1.2.3",
+    "coffee-script": "^1.9.3",
+    "mocha": "^2.2.5",
+    "nock": "^2.9.1"
+  },
+  "engines": {
+    "node": "0.12.5",
+    "npm": "2.7.3"
+  }
+}
