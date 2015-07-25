@@ -17,4 +17,4 @@ describe "Signed Request", ->
       done err
 
   it "should should send a signed request", ->
-    assert @spy.calledArgs[0][0].headers.Authentication
+    assert @spy.calledArgs[0][0].headers.Authorization

@@ -1,13 +1,13 @@
 request = require "request"
 OAuth = require "./oauth"
+o = require "oauth"
+SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"
 
 respond = (done) ->
   (err, response, body) ->
-    if process.env.DEBUG
-      console.log "=> Error: ", err if err
-      console.log "=> Response Code: ", response.statusCode
-      console.log "=> Response Body: ", escape body
-      console.log "=> Request Headers: ", response.request.headers
+    if process.env.NODE_DEBUG
+      console.log body
+      console.log "=> Error: ", "#{err?.statusCode} #{body.statusMessage}" if err
     done err, body
 
 module.exports = class Request
@@ -15,14 +15,18 @@ module.exports = class Request
     @oauth = new OAuth @options
 
   _params: (method, url, done) ->
-    @oauth.sign method, url, (err, signature) ->
+    @oauth.getToken (err, token, tokenSecret) =>
       return done err if err
       params =
         method: method
         uri: url
         headers:
           "Content-Type": "application/json"
-          "Authentication": signature
+        oauth:
+          consumer_key: @options.consumerKey
+          consumer_secret: @options.consumerSecret
+          token: token
+          token_secret: tokenSecret
       done err, params
 
   get: (url, body, done) ->

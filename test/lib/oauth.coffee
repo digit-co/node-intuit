@@ -16,7 +16,7 @@ describe "OAuth", ->
         assert secret
         done err
 
-    it "should include the OAuth consumer key Authorization header", (done) ->
+    it.skip "should return a token and secret", (done) ->
       oauth = new OAuth config
       spy = bond(oauth, "request").through()
       oauth.getToken (err, token, secret) ->
@@ -31,10 +31,3 @@ describe "OAuth", ->
       {token, tokenSecret} = oauth.parseResponse response
       assert token
       assert tokenSecret
-
-  describe "sign", ->
-    it "should return a signature", (done) ->
-      oauth = new OAuth config
-      oauth.sign "GET", "http://google.com", (err, signature) ->
-        assert signature
-        done err
