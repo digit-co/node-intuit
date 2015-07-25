@@ -1,6 +1,5 @@
 request = require "request"
 nonce = require("nonce")()
-{sign} = require("oauth-sign")
 Saml = require "./saml"
 
 SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"

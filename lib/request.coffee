@@ -1,6 +1,5 @@
 request = require "request"
 OAuth = require "./oauth"
-o = require "oauth"
 SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"
 
 respond = (done) ->
