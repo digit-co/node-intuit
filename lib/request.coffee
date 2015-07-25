@@ -2,13 +2,6 @@ request = require "request"
 OAuth = require "./oauth"
 SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"
 
-respond = (done) ->
-  (err, response, body) ->
-    if process.env.NODE_DEBUG
-      console.log body
-      console.log "=> Error: ", "#{err?.statusCode} #{body.statusMessage}" if err
-    done err, body
-
 module.exports = class Request
   constructor: (@options) ->
     @oauth = new OAuth @options
@@ -31,21 +24,21 @@ module.exports = class Request
   get: (url, body, done) ->
     @_params "GET", url, (err, params) ->
       return done err if err
-      request params, respond done
+      request params, done
 
   post: (url, body, done) ->
     @_params "POST", url, (err, params) ->
       return done err if err
       params.body = body
-      request params, respond done
+      request params, done
 
   put: (url, body, done) ->
     @_params "PUT", url, (err, params) ->
       return done err if err
       params.body = body
-      request params, respond done
+      request params, done
 
   delete: (url, body, done) ->
     @_params "DELETE", url, (err, params) ->
       return done err if err
-      request params, respond done
+      request params, done
