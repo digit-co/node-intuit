@@ -22,7 +22,7 @@ module.exports = class OAuth
         "Authorization": "OAuth oauth_consumer_key=\"#{@options.consumerKey}\""
       form:
         saml_assertion: @saml
-    request params, (err, response, body) =>
+    request.post params, (err, response, body) =>
       return done err if err
       oauth = @parseResponse body
       done err, oauth.token, oauth.tokenSecret
