@@ -7,7 +7,7 @@ helper = require "../helper"
 helper.stubOAuth(3)
 
 describe "OAuth", ->
-  describe.only "getToken", ->
+  describe "getToken", ->
     before -> @spy = bond(request, "post").through()
     before (done) ->
       oauth = new OAuth config
