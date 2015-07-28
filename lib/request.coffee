@@ -1,4 +1,5 @@
 request = require "request"
+debug = require("debug")("node-intuit:request")
 OAuth = require "./oauth"
 SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"
 
@@ -14,6 +15,7 @@ module.exports = class Request
         uri: url
         headers:
           "Content-Type": "application/json"
+          "Accept": "application/json"
         oauth:
           consumer_key: @options.consumerKey
           consumer_secret: @options.consumerSecret
@@ -21,24 +23,29 @@ module.exports = class Request
           token_secret: tokenSecret
       done err, params
 
+  request: (params, done) ->
+    request params, (err, response, body) ->
+      debug "#{response.statusCode} - #{response.statusMessage} - #{response.request.uri.path}"
+      done err, body
+
   get: (url, body, done) ->
-    @_params "GET", url, (err, params) ->
+    @_params "GET", url, (err, params) =>
       return done err if err
-      request params, done
+      @request params, done
 
   post: (url, body, done) ->
-    @_params "POST", url, (err, params) ->
+    @_params "POST", url, (err, params) =>
       return done err if err
-      params.body = body
-      request params, done
+      params.form = body
+      @request params, done
 
   put: (url, body, done) ->
-    @_params "PUT", url, (err, params) ->
+    @_params "PUT", url, (err, params) =>
       return done err if err
-      params.body = body
-      request params, done
+      params.form = body
+      @request params, done
 
   delete: (url, body, done) ->
-    @_params "DELETE", url, (err, params) ->
+    @_params "DELETE", url, (err, params) =>
       return done err if err
-      request params, done
+      @request params, done
