@@ -1,7 +1,12 @@
 assert = require "assert"
+http = require "http"
+bond = require "bondjs"
+request = require "request"
 intuitClient = require "../"
 config = require "./config"
 intuit = intuitClient config
+helper = require "./helper"
+helper.stubOAuth()
 
 describe "Intuit API Client", ->
   describe "institutions", ->
@@ -9,6 +14,14 @@ describe "Intuit API Client", ->
       assert.notEqual intuit.institutions, undefined
 
   describe "getInstitutionDetails", ->
+    it "should should send a signed request", (done) ->
+      institutionDetails =
+        name: "Bank Name"
+      spy = bond(http, "request").through()
+      intuit.getInstitutionDetails 100000, (err, @institutionDetails) ->
+        assert /oauth_signature/.test spy.calledArgs[0][0].headers.Authorization
+        done err
+
     it "should be defined", ->
       assert.notEqual intuit.getInstitutionDetails, undefined
 
