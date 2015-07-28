@@ -3,7 +3,7 @@ uuid = require "node-uuid"
 ENCODING = "base64"
 
 addMinutes = (date, minutes) ->
-  return new Date(date.getTime() + minutes * 60000)
+  return new Date(date.getTime() + minutes * 60000).toISOString()
 
 module.exports = class Saml
   constructor: (@options) ->

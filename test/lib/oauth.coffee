@@ -8,21 +8,21 @@ helper.stubOAuth(3)
 
 describe "OAuth", ->
   describe "getToken", ->
-    it "should return an OAuth token", (done) ->
+    before -> @spy = bond(request, "post").through()
+    before (done) ->
       oauth = new OAuth config
-      oauth.getToken (err, token, secret) ->
-        assert.equal err, null
-        assert token
-        assert secret
-        done err
+      oauth.getToken (@err, @token, @secret) =>
+        done @err
+    after -> @spy.restore()
 
-    it "should include the OAuth consumer key Authorization header", (done) ->
-      oauth = new OAuth config
-      spy = bond(oauth, "request").through()
-      oauth.getToken (err, token, secret) ->
-        regex = new RegExp "#{config.consumerKey}"
-        assert regex.test spy.calledArgs[0][0].headers.Authorization
-        done err
+    it "should return an OAuth token", ->
+      assert.equal @err, null
+      assert @token
+      assert @secret
+
+    it "should have an Authorization header with the consumer key", ->
+      regex = new RegExp "#{config.consumerKey}"
+      assert regex.test @spy.calledArgs[0][0].headers.Authorization
 
   describe "parseResponse", ->
     it "should parse the response for a token and a secret", ->
@@ -31,10 +31,3 @@ describe "OAuth", ->
       {token, tokenSecret} = oauth.parseResponse response
       assert token
       assert tokenSecret
-
-  describe "sign", ->
-    it "should return a signature", (done) ->
-      oauth = new OAuth config
-      oauth.sign "GET", "http://google.com", (err, signature) ->
-        assert signature
-        done err
