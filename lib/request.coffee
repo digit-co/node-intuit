@@ -26,7 +26,12 @@ module.exports = class Request
   request: (params, done) ->
     request params, (err, response, body) ->
       debug "#{response.statusCode} - #{response.statusMessage} - #{response.request.uri.path}"
-      done err, body
+      try
+        parsed = JSON.parse body
+      catch e
+        err = e
+        parsed = body
+      done err, parsed
 
   get: (url, body, done) ->
     @_params "GET", url, (err, params) =>
