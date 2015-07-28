@@ -4,7 +4,11 @@ WIP `npm` port of https://github.com/cloocher/aggcat
 
 ### Basic Usage
 
-```
+```coffeescript
+# script.coffee
+fs = require "fs"
+path = require "path"
+
 config =
   issuerId: "issuer-id"
   consumerKey: "consumer-key"
