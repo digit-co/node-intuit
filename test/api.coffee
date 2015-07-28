@@ -14,11 +14,13 @@ describe "Intuit API Client", ->
       assert.notEqual intuit.institutions, undefined
 
   describe "getInstitutionDetails", ->
-    it "should should send a signed request", (done) ->
+    it "should should send a signed JSON request", (done) ->
       institutionDetails =
         name: "Bank Name"
       spy = bond(http, "request").through()
       intuit.getInstitutionDetails 100000, (err, @institutionDetails) ->
+        assert.equal spy.calledArgs[0][0].headers["Content-Type"], "application/json"
+        assert.equal spy.calledArgs[0][0].headers["Accept"], "application/json"
         assert /oauth_signature/.test spy.calledArgs[0][0].headers.Authorization
         done err
 
