@@ -1,0 +1,159 @@
+[
+  {
+    "scope": "https://financialdatafeed.platform.intuit.com:443",
+    "method": "GET",
+    "path": "/v1/accounts/400107846787/transactions?txnStartDate=2015-05-14&txnEndDate=2015-05-21",
+    "body": "",
+    "status": 200,
+    "response": {
+      "bankingTransactions": [
+        {
+          "id": 403657885582,
+          "currencyType": "USD",
+          "postedDate": 1437634800000,
+          "payeeName": "CHECKINGD debit 204",
+          "amount": -7.23,
+          "pending": false,
+          "institutionTransactionId": "INTUIT-403657885582",
+          "userDate": 1437634800000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        },
+        {
+          "id": 403657885585,
+          "currencyType": "USD",
+          "postedDate": 1437894000000,
+          "payeeName": "CHECKINGD credit 207",
+          "amount": 7.26,
+          "pending": false,
+          "institutionTransactionId": "INTUIT-403657885585",
+          "userDate": 1437894000000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        },
+        {
+          "id": 403657885595,
+          "currencyType": "USD",
+          "postedDate": 1437548400000,
+          "payeeName": "CHECKINGD credit 203",
+          "amount": 7.22,
+          "pending": false,
+          "institutionTransactionId": "INTUIT-403657885595",
+          "userDate": 1437548400000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        },
+        {
+          "id": 403657885902,
+          "currencyType": "USD",
+          "postedDate": 1437807600000,
+          "payeeName": "CHECKINGD debit 206",
+          "amount": -7.25,
+          "pending": false,
+          "institutionTransactionId": "INTUIT-403657885902",
+          "userDate": 1437807600000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        },
+        {
+          "id": 403657885905,
+          "currencyType": "USD",
+          "postedDate": 1437721200000,
+          "payeeName": "CHECKINGD credit 205",
+          "amount": 7.24,
+          "pending": false,
+          "institutionTransactionId": "INTUIT-403657885905",
+          "userDate": 1437721200000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        },
+        {
+          "id": 403663363252,
+          "currencyType": "USD",
+          "postedDate": 1437980400000,
+          "payeeName": "CHECKINGD debit 208",
+          "amount": -7.27,
+          "pending": false,
+          "institutionTransactionId": "INTUIT-403663363252",
+          "userDate": 1437980400000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        },
+        {
+          "id": 403664091017,
+          "currencyType": "USD",
+          "payeeName": "CHECKINGD credit 209",
+          "amount": 7.28,
+          "pending": true,
+          "userDate": 1438153200000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        },
+        {
+          "id": 403664091018,
+          "currencyType": "USD",
+          "payeeName": "CHECKINGD debit 210",
+          "amount": -7.29,
+          "pending": true,
+          "userDate": 1438153200000,
+          "categorization": {
+            "context": [
+
+            ],
+            "common": {
+
+            }
+          }
+        }
+    ]},
+    "headers": {
+      "date": "Tue, 28 Jul 2015 18:32:49 GMT",
+      "content-type": "text/plain",
+      "content-length": "0",
+      "intuit_tid": "gw-1e6def67-b82b-4317-981c-d2e7bed343c8",
+      "connection": "close"
+    }
+  }
+]

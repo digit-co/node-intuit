@@ -56,6 +56,18 @@ fixtures =
     oauth()
     load "getAccount"
 
+  getAccountTransactions: ->
+    oauth()
+    load "getAccountTransactions"
+
+  getAccountTransactions_startDate: ->
+    oauth()
+    load "getAccountTransactions_startDate"
+
+  getAccountTransactions_dateRange: ->
+    oauth()
+    load "getAccountTransactions_dateRange"
+
 module.exports =
   record: ->
     nock.recorder.rec

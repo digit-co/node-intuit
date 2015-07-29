@@ -1,4 +1,5 @@
 assert = require "assert"
+timekeeper = require "timekeeper"
 request = require "request"
 bond = require "bondjs"
 request = require "request"
@@ -44,7 +45,32 @@ describe "Intuit Client", ->
           done err
 
     describe "getAccountTransactions", ->
-      it "should return transactions"
+      describe "default parameters", ->
+        before -> timekeeper.freeze new Date "2015-07-30"
+        before -> fixture.load "getAccountTransactions"
+        after -> timekeeper.reset()
+        it "should return transactions", (done) ->
+          intuit.getAccountTransactions "userId", 400107846787, (err, transactions) ->
+            assert.equal transactions.length, 8
+            done err
+
+      describe "Specific start date", ->
+        before -> timekeeper.freeze new Date "2015-07-30"
+        before -> fixture.load "getAccountTransactions_startDate"
+        after -> timekeeper.reset()
+        it "should return transactions", (done) ->
+          intuit.getAccountTransactions "userId", 400107846787, new Date("2015-05-15"), (err, transactions) ->
+            assert.equal transactions.length, 8
+            done err
+
+      describe "Specific date range", ->
+        before -> timekeeper.freeze new Date "2015-07-30"
+        before -> fixture.load "getAccountTransactions_dateRange"
+        after -> timekeeper.reset()
+        it "should return transactions", (done) ->
+          intuit.getAccountTransactions "userId", 400107846787, new Date("2015-05-15"), new Date("2015-05-22"), (err, transactions) ->
+            assert.equal transactions.length, 8
+            done err
 
     describe "updateInstitutionLogin", ->
       it "should update bank credentials"

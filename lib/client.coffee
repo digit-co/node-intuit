@@ -3,6 +3,16 @@ Request = require "./request"
 
 BASE_URL = "https://financialdatafeed.platform.intuit.com/v1"
 
+zeroBased = (number) ->
+  ("0" + number).slice(-2)
+
+# 2015-07-29
+formatDate = (date) ->
+  year = date.getFullYear()
+  month = zeroBased date.getMonth() + 1
+  day = zeroBased date.getDate()
+  "#{year}-#{month}-#{day}"
+
 module.exports = class IntuitClient
   constructor: (@options) ->
 
@@ -36,9 +46,26 @@ module.exports = class IntuitClient
       return done err if err
       done err, _.first response.accounts
 
-  getAccountTransactions: (userId, accountId, startDate, endDate) ->
+  # Download last week of transactions unless a date range is specified
+  # If no endDate is specified, startDate to current is downloaded
+  getAccountTransactions: (userId, accountId, startDate, endDate, done) ->
+    oneWeekAgo = -10080
+    defaultStartDate = formatDate new Date(new Date().getTime() + oneWeekAgo * 60000)
+
+    if typeof(startDate) is "function"
+      [startDate, endDate, done] = [defaultStartDate, null, startDate]
+    else if typeof(endDate) is "function"
+      [startDate, endDate, done] = [formatDate(startDate), null, endDate]
+    else
+      [startDate, endDate, done] = [formatDate(startDate), formatDate(endDate), done]
+
+    url = "/accounts/#{accountId}/transactions?txnStartDate=#{startDate}"
+    url += "&txnEndDate=#{endDate}" if endDate
+
     @options.userId = userId
-    @request "get", "/accounts/#{accountId}/transactions", done
+    @request "get", url, (err, response) ->
+      return done err if err
+      done err, response.bankingTransactions
 
   updateInstitutionLogin: (userId, institutionId, loginId, credentials, done) ->
     @options.userId = userId
