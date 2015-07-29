@@ -23,38 +23,38 @@ describe "Intuit Client", ->
           assert.equal institutionDetails.institutionName, "CCBank-Beacon"
           done err
 
-    describe.skip "discoverAndAddAccounts", ->
-      it "should return newly created accounts", ->
-        assert.notEqual intuit.discoverAndAddAccounts, undefined
+    describe "discoverAndAddAccounts", ->
+      it "should return newly created accounts"
 
-    describe.skip "mfa", ->
-      it "should handle MFA", ->
-        assert.notEqual intuit.mfa, undefined
+    describe "mfa", ->
+      it "should handle MFA"
 
     describe "getCustomerAccounts", ->
-      before -> fixture.load "oauth"
       before -> fixture.load "getCustomerAccounts"
       it "should return all accounts", (done) ->
-        intuit.getCustomerAccounts "todd", (err, accounts) =>
+        intuit.getCustomerAccounts "userId", (err, accounts) ->
           assert.equal accounts.length, 2
           done err
 
-    describe.skip "getAccount", ->
-      it "should return an account", ->
-        assert.notEqual intuit.getAccount, undefined
+    describe "getAccount", ->
+      before -> fixture.load "getAccount"
+      it "should return an account", (done) ->
+        intuit.getAccount "userId", 400107846787, (err, account) ->
+          assert.equal account.bankingAccountType, "CHECKING"
+          done err
 
-    describe.skip "getAccountTransactions", ->
-      it "should return transactions", ->
-        assert.notEqual intuit.getAccountTransactions, undefined
+    describe "getAccountTransactions", ->
+      it "should return transactions"
 
-    describe.skip "updateInstitutionLogin", ->
-      it "should update bank credentials", ->
-        assert.notEqual intuit.updateInstitutionLogin, undefined
+    describe "updateInstitutionLogin", ->
+      it "should update bank credentials"
 
-    describe.skip "deleteAccount", ->
-      it "should remove the account", ->
-        assert.notEqual intuit.deleteAccount, undefined
+    describe "deleteAccount", ->
+      before -> fixture.load "deleteAccount"
+      it "should remove the account", (done) ->
+        intuit.deleteAccount "userId", 400107846793, (err, response) ->
+          assert.equal response, 200
+          done err
 
-    describe.skip "deleteCustomer", ->
-      it "should remove the user", ->
-        assert.notEqual intuit.deleteCustomer, undefined
+    describe "deleteCustomer", ->
+      it "should remove the user"

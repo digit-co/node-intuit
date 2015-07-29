@@ -1,3 +1,4 @@
+_ = require "lodash"
 Request = require "./request"
 
 BASE_URL = "https://financialdatafeed.platform.intuit.com/v1"
@@ -31,7 +32,9 @@ module.exports = class IntuitClient
 
   getAccount: (userId, accountId, done) ->
     @options.userId = userId
-    @request "get", "/accounts/#{accountId}", done
+    @request "get", "/accounts/#{accountId}", (err, response) ->
+      return done err if err
+      done err, _.first response.accounts
 
   getAccountTransactions: (userId, accountId, startDate, endDate) ->
     @options.userId = userId

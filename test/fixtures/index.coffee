@@ -37,6 +37,18 @@ fixtures =
     oauth()
     load "institutions"
 
+  deleteAccount: ->
+    oauth()
+    load "deleteAccount"
+
+  getCustomerAccounts: ->
+    oauth()
+    load "getCustomerAccounts"
+
+  getAccount: ->
+    oauth()
+    load "getAccount"
+
 module.exports =
   record: ->
     nock.recorder.rec
