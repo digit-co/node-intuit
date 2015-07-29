@@ -1,12 +1,11 @@
 assert = require "assert"
-http = require "http"
+request = require "request"
 bond = require "bondjs"
 request = require "request"
 intuitClient = require "../"
 config = require "./config"
 intuit = intuitClient config
-helper = require "./helper"
-helper.stubOAuth()
+fixture = require "./fixtures"
 
 describe "Intuit API Client", ->
   describe "institutions", ->
@@ -14,18 +13,25 @@ describe "Intuit API Client", ->
       assert.notEqual intuit.institutions, undefined
 
   describe "getInstitutionDetails", ->
-    it "should should send a signed JSON request", (done) ->
-      institutionDetails =
-        name: "Bank Name"
-      spy = bond(http, "request").through()
-      intuit.getInstitutionDetails 100000, (err, @institutionDetails) ->
-        assert.equal spy.calledArgs[0][0].headers["Content-Type"], "application/json"
-        assert.equal spy.calledArgs[0][0].headers["Accept"], "application/json"
-        assert /oauth_signature/.test spy.calledArgs[0][0].headers.Authorization
+    before ->
+      fixture.load "getInstitutionDetails"
+      @spy = bond(request, "get").through()
+    before (done) ->
+      intuit.getInstitutionDetails 100000, (err, @institutionDetails) =>
         done err
 
-    it "should be defined", ->
-      assert.notEqual intuit.getInstitutionDetails, undefined
+    it "should request JSON", ->
+      assert.equal @spy.calledArgs[0][0].headers["Content-Type"], "application/json"
+      assert.equal @spy.calledArgs[0][0].headers["Accept"], "application/json"
+
+    it "should use OAuth data to sign request", ->
+      assert @spy.calledArgs[0][0].oauth.consumer_key
+      assert @spy.calledArgs[0][0].oauth.consumer_secret
+      assert @spy.calledArgs[0][0].oauth.token
+      assert @spy.calledArgs[0][0].oauth.token_secret
+
+    it "should return institution details", ->
+      assert.equal @institutionDetails.institutionName, "CCBank-Beacon"
 
   describe "discoverAndAddAccounts", ->
     it "should be defined", ->

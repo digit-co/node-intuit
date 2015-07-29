@@ -24,7 +24,8 @@ module.exports = class Request
       done err, params
 
   request: (params, done) ->
-    request params, (err, response, body) ->
+    requestMethod = request[params.method.toLowerCase()]
+    requestMethod params, (err, response, body) ->
       debug "#{response.statusCode} - #{response.statusMessage} - #{response.request.uri.path}"
       try
         parsed = JSON.parse body

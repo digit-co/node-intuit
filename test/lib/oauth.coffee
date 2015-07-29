@@ -3,12 +3,12 @@ bond = require "bondjs"
 request = require "request"
 OAuth = require "../../lib/oauth"
 config = require "../config"
-helper = require "../helper"
-helper.stubOAuth(3)
+fixture = require "../fixtures"
 
 describe "OAuth", ->
   describe "getToken", ->
     before -> @spy = bond(request, "post").through()
+    before -> fixture.load "oauth", 3
     before (done) ->
       oauth = new OAuth config
       oauth.getToken (@err, @token, @secret) =>

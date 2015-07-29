@@ -1,0 +1,58 @@
+[
+  {
+    "scope": "https://financialdatafeed.platform.intuit.com:443",
+    "method": "GET",
+    "path": "/v1/institutions/100000",
+    "body": "",
+    "status": 200,
+    "response": {
+      "address": {
+        "country": "USA"
+      },
+      "keys": {
+        "key": [
+          {
+            "name": "Banking Password",
+            "description": "Banking Password",
+            "displayOrder": 2,
+            "status": "Active",
+            "valueLengthMin": 1,
+            "valueLengthMax": 20,
+            "displayFlag": true,
+            "instructions": "Enter banking password (go)",
+            "mask": true
+          },
+          {
+            "name": "Banking Userid",
+            "description": "Banking Userid",
+            "displayOrder": 1,
+            "status": "Active",
+            "valueLengthMin": 1,
+            "valueLengthMax": 20,
+            "displayFlag": true,
+            "instructions": "Enter banking userid (demo)",
+            "mask": false
+          }
+        ]
+      },
+      "currencyCode": "USD",
+      "specialText": "Please enter your intuit.com Account Number and Password required for login.",
+      "homeUrl": "http://www.intuit.com",
+      "institutionId": 100000,
+      "institutionName": "CCBank-Beacon"
+    },
+    "headers": {
+      "date": "Tue, 28 Jul 2015 22:39:38 GMT",
+      "pragma": "no-cache",
+      "content-type": "application/json",
+      "content-length": "670",
+      "cache-control": "no-cache",
+      "expires": "Wed, 31 Dec 1969 16:00:00 PST",
+      "intuit_tid": "gw-8937219d-6a7f-4543-bd11-f52eb63a09c6",
+      "set-cookie": [
+        "JSESSIONID=80381852D0F879D03D6E539E65F273E4.nodepprdccoap40w.corp.intuit.net; Path=/rest-war"
+      ],
+      "connection": "close"
+    }
+  }
+]
