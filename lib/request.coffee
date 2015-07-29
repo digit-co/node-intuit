@@ -27,7 +27,7 @@ module.exports = class Request
     method = if params.method is "DELETE" then params.method.toLowerCase()[0..2] else params.method.toLowerCase()
     requestMethod = request[method]
     requestMethod params, (err, response, body) ->
-      debug "#{response.statusCode} - #{response.statusMessage} - #{response.request.uri.path}"
+      debug "#{params.method} #{response.request.uri.path} - #{response.statusCode} #{response.statusMessage}"
       return done null, response.statusCode if response.statusCode is 200 and not body
       try
         parsed = JSON.parse body
