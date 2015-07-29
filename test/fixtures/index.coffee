@@ -33,6 +33,9 @@ fixtures =
     oauth()
     load "getInstitutionDetails"
 
+  institutions: ->
+    oauth()
+    load "institutions"
 
 module.exports =
   record: ->

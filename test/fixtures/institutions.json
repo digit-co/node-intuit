@@ -1,0 +1,166 @@
+[
+  {
+    "scope": "https://financialdatafeed.platform.intuit.com:443",
+    "method": "GET",
+    "path": "/v1/institutions",
+    "body": "",
+    "status": 200,
+    "response": {
+      "institution": [
+        {
+          "homeUrl": "http:\/\/www.cffcu.org\/index.html",
+          "phoneNumber": "1-864-585-6838",
+          "institutionId": 8860,
+          "virtual": false,
+          "institutionName": "Carolina Foothills FCU Credit Card"
+        },
+        {
+          "homeUrl": "https:\/\/www.christianfinancialcu.com\/",
+          "phoneNumber": "586-772-6330",
+          "institutionId": 8844,
+          "virtual": false,
+          "institutionName": "Christian Financial Credit Union - Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.myacfcu.com\/ASP\/home.asp",
+          "phoneNumber": "1-800-378-3778",
+          "institutionId": 8851,
+          "virtual": false,
+          "institutionName": "Appalachian Community FCU Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.southside.com\/index.htm",
+          "phoneNumber": "1-903-531-7111",
+          "institutionId": 8819,
+          "virtual": false,
+          "institutionName": "Southside Bank (TX) Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.gasfcu.org\/",
+          "phoneNumber": "1-800-844-5363",
+          "institutionId": 8886,
+          "virtual": false,
+          "institutionName": "Glendale Area Schools FCU Credit Card"
+        },
+        {
+          "homeUrl": "https:\/\/www.southernfirst.com\/",
+          "phoneNumber": "864-679-9000",
+          "institutionId": 8890,
+          "virtual": false,
+          "institutionName": "Southern First Bank (SC) - Business Banking"
+        },
+        {
+          "homeUrl": "http:\/\/www.htfffcu.org\/",
+          "phoneNumber": "1-713-864-0959",
+          "institutionId": 8891,
+          "virtual": false,
+          "institutionName": "Houston TX Firefighters FCU Credit Card"
+        },
+        {
+          "homeUrl": "https:\/\/www.mckaydeecu.com\/index.asp",
+          "phoneNumber": "1-801-476-8000",
+          "institutionId": 8900,
+          "virtual": false,
+          "institutionName": "SummitOne Credit Union"
+        },
+        {
+          "homeUrl": "http:\/\/www.primefinancialcu.org\/default.aspx",
+          "phoneNumber": "1-800-835-9680",
+          "institutionId": 8905,
+          "virtual": false,
+          "institutionName": "Prime Financial CU Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.andrewsfcu.org\/",
+          "phoneNumber": "301-702-5500",
+          "institutionId": 8960,
+          "virtual": false,
+          "institutionName": "Andrews Federal Credit Union - Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.associatedbank.com",
+          "phoneNumber": "1-800-682-4989",
+          "institutionId": 8965,
+          "virtual": false,
+          "institutionName": "Associated Bank Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.veritasfcu.org\/",
+          "phoneNumber": "615-786-0452",
+          "institutionId": 8910,
+          "virtual": false,
+          "institutionName": "Veritas Federal Credit Union (TN) - Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.omegafcu.com\/",
+          "phoneNumber": "1-412-369-3800",
+          "institutionId": 8912,
+          "virtual": false,
+          "institutionName": "Omega FCU Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.solfcu.org\/ASP\/home.asp",
+          "phoneNumber": "1-800-999-5894",
+          "institutionId": 8929,
+          "virtual": false,
+          "institutionName": "Solidarity Community FCU Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.mmfcu.org\/",
+          "phoneNumber": "1-218-829-0371",
+          "institutionId": 8949,
+          "virtual": false,
+          "institutionName": "Mid-Minnesota FCU Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.moneyonefcu.org\/",
+          "phoneNumber": "1-800-638-0232",
+          "institutionId": 8951,
+          "virtual": false,
+          "institutionName": "Money One FCU Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.genfed.com",
+          "phoneNumber": "1-888-443-6333",
+          "institutionId": 8993,
+          "virtual": false,
+          "institutionName": "GenFed FCU Credit Card"
+        },
+        {
+          "homeUrl": "http:\/\/www.stellarone.com\/",
+          "phoneNumber": "540-382-4951",
+          "institutionId": 9008,
+          "virtual": false,
+          "institutionName": "StellarOne (VA) - Business Banking"
+        },
+        {
+          "homeUrl": "https:\/\/www.oucu.org\/",
+          "phoneNumber": "1-800-562-8420",
+          "institutionId": 9016,
+          "virtual": false,
+          "institutionName": "Ohio University Credit Union"
+        },
+        {
+          "homeUrl": "https:\/\/www.thefriendlybank.com\/",
+          "phoneNumber": "225-638-3713 ",
+          "institutionId": 9017,
+          "virtual": false,
+          "institutionName": "Peoples Bank and Trust (LA)"
+        }
+      ]
+    },
+    "headers": {
+      "date": "Tue, 28 Jul 2015 22:39:38 GMT",
+      "pragma": "no-cache",
+      "content-type": "application/json",
+      "content-length": "670",
+      "cache-control": "no-cache",
+      "expires": "Wed, 31 Dec 1969 16:00:00 PST",
+      "intuit_tid": "gw-8937219d-6a7f-4543-bd11-f52eb63a09c6",
+      "set-cookie": [
+        "JSESSIONID=80381852D0F879D03D6E539E65F273E4.nodepprdccoap40w.corp.intuit.net; Path=/rest-war"
+      ],
+      "connection": "close"
+    }
+  }
+]

@@ -8,38 +8,20 @@ intuit = intuitClient config
 fixture = require "./fixtures"
 
 describe "Intuit Client", ->
-  describe "Data", ->
-    describe "headers", ->
-      before ->
-        fixture.load "signedJson"
-      before (done) ->
-        intuit.getInstitutionDetails "userId", 100000, (@err) =>
-          done null
-
-      it "should make a signed request for JSON", ->
-        assert.equal @err, null
-
   describe "API", ->
     describe "institutions", ->
-      it "should be defined", ->
-        assert.notEqual intuit.institutions, undefined
-
-    describe "getInstitutionDetails", ->
-      before ->
-        fixture.load "getInstitutionDetails"
-        @spy = bond(request, "get").through()
-      before (done) ->
-        intuit.getInstitutionDetails "userId", 100000, (err, @institutionDetails) =>
+      before -> fixture.load "institutions"
+      it "should return institutions", (done) ->
+        intuit.institutions "userId", (err, institutions) =>
+          assert.equal institutions.length, 20
           done err
 
-      it "should use OAuth data to sign request", ->
-        assert @spy.calledArgs[0][0].oauth.consumer_key
-        assert @spy.calledArgs[0][0].oauth.consumer_secret
-        assert @spy.calledArgs[0][0].oauth.token
-        assert @spy.calledArgs[0][0].oauth.token_secret
-
-      it "should return institution details", ->
-        assert.equal @institutionDetails.institutionName, "CCBank-Beacon"
+    describe "getInstitutionDetails", ->
+      before -> fixture.load "getInstitutionDetails"
+      it "should return an institution's details", (done) ->
+        intuit.getInstitutionDetails "userId", 100000, (err, institutionDetails) ->
+          assert.equal institutionDetails.institutionName, "CCBank-Beacon"
+          done err
 
     describe.skip "discoverAndAddAccounts", ->
       it "should return newly created accounts", ->
@@ -50,15 +32,12 @@ describe "Intuit Client", ->
         assert.notEqual intuit.mfa, undefined
 
     describe "getCustomerAccounts", ->
-      before ->
-        fixture.load "oauth"
-        fixture.load "getCustomerAccounts"
-      before (done) ->
-        intuit.getCustomerAccounts "todd", (err, @accounts) =>
+      before -> fixture.load "oauth"
+      before -> fixture.load "getCustomerAccounts"
+      it "should return all accounts", (done) ->
+        intuit.getCustomerAccounts "todd", (err, accounts) =>
+          assert.equal accounts.length, 2
           done err
-
-      it "should return all accounts", ->
-        assert.equal @accounts.length, 2
 
     describe.skip "getAccount", ->
       it "should return an account", ->
