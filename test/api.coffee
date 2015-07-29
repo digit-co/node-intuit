@@ -7,6 +7,7 @@ intuitClient = require "../"
 config = require "./config"
 intuit = intuitClient config
 fixture = require "./fixtures"
+process.env.TZ = "UTC"
 
 describe "Intuit Client", ->
   describe "API", ->
