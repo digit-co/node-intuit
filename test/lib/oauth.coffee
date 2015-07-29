@@ -8,7 +8,7 @@ fixture = require "../fixtures"
 describe "OAuth", ->
   describe "getToken", ->
     before -> @spy = bond(request, "post").through()
-    before -> fixture.load "signedSaml"
+    before -> fixture.load "oauth"
     before (done) ->
       oauth = new OAuth config
       oauth.getToken (@err, @token, @secret) =>

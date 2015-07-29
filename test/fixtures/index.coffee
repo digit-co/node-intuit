@@ -11,34 +11,30 @@ oauth = ->
   nock("https://oauth.intuit.com:443")
     .filteringRequestBody((body) -> return "SAML")
     .post("/oauth/v1/get_access_token_by_saml", "SAML")
+    .matchHeader("Authorization", authorizationHeader)
     .reply(200, "oauth_token_secret=L63cI4q5UhP4mQzpCi1RHBMSLe2TNOaI98vxyIBL&oauth_token=qyprdcvDh5V2XoJRwYmxxdL5vOJ54Z6sNVohlNLQHyyhHaAy")
+
+jsonHeader = (header) ->
+  header is "application/json"
+
+signedHeader = (header) ->
+  /oauth_signature/.test header
+
+authorizationHeader = (header) ->
+  regex = new RegExp "#{config.consumerKey}"
+  regex.test header
 
 fixtures =
   oauth: oauth
 
-  # Fail the test if these headers aren't generated
   signedJson: ->
     oauth()
-    nock("https://financialdatafeed.platform.intuit.com:443", {
-      reqheaders:
-        "Content-Type": "application/json"
-        "Accept": "application/json"
-    })
+    nock("https://financialdatafeed.platform.intuit.com:443")
       .get("/v1/institutions/100000")
-      .matchHeader("Authorization", (header) ->
-        /oauth_signature/.test header
-      )
+      .matchHeader("Content-Type", jsonHeader)
+      .matchHeader("Accept", jsonHeader)
+      .matchHeader("Authorization", signedHeader)
       .reply(200, {})
-
-  signedSaml: ->
-    nock("https://oauth.intuit.com:443")
-      .filteringRequestBody((body) -> return "SAML")
-      .post("/oauth/v1/get_access_token_by_saml", "SAML")
-      .matchHeader("Authorization", (header) ->
-        regex = new RegExp "#{config.consumerKey}"
-        regex.test header
-      )
-      .reply(200, "oauth_token_secret=L63cI4q5UhP4mQzpCi1RHBMSLe2TNOaI98vxyIBL&oauth_token=qyprdcvDh5V2XoJRwYmxxdL5vOJ54Z6sNVohlNLQHyyhHaAy")
 
   getInstitutionDetails: ->
     oauth()
