@@ -83,4 +83,8 @@ describe "Intuit Client", ->
           done err
 
     describe "deleteCustomer", ->
-      it "should remove the user"
+      before -> fixture.load "deleteCustomer"
+      it "should remove the user", (done) ->
+        intuit.deleteCustomer "userId", (err, response) ->
+          assert.equal response, 200
+          done err

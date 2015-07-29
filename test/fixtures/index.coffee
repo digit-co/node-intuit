@@ -68,6 +68,10 @@ fixtures =
     oauth()
     load "getAccountTransactions_dateRange"
 
+  deleteCustomer: ->
+    oauth()
+    load "deleteCustomer"
+
 module.exports =
   record: ->
     nock.recorder.rec
