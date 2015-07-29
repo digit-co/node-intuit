@@ -1,5 +1,6 @@
 _ = require "lodash"
 nock = require "nock"
+config = require "../config"
 path = require "path"
 fs = require "fs"
 
@@ -28,6 +29,16 @@ fixtures =
         /oauth_signature/.test header
       )
       .reply(200, {})
+
+  signedSaml: ->
+    nock("https://oauth.intuit.com:443")
+      .filteringRequestBody((body) -> return "SAML")
+      .post("/oauth/v1/get_access_token_by_saml", "SAML")
+      .matchHeader("Authorization", (header) ->
+        regex = new RegExp "#{config.consumerKey}"
+        regex.test header
+      )
+      .reply(200, "oauth_token_secret=L63cI4q5UhP4mQzpCi1RHBMSLe2TNOaI98vxyIBL&oauth_token=qyprdcvDh5V2XoJRwYmxxdL5vOJ54Z6sNVohlNLQHyyhHaAy")
 
   getInstitutionDetails: ->
     oauth()
