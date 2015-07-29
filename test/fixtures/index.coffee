@@ -14,6 +14,21 @@ oauth = ->
 
 fixtures =
   oauth: oauth
+
+  # Fail the test if these headers aren't generated
+  signedJson: ->
+    oauth()
+    nock("https://financialdatafeed.platform.intuit.com:443", {
+      reqheaders:
+        "Content-Type": "application/json"
+        "Accept": "application/json"
+    })
+      .get("/v1/institutions/100000")
+      .matchHeader("Authorization", (header) ->
+        /oauth_signature/.test header
+      )
+      .reply(200, {})
+
   getInstitutionDetails: ->
     oauth()
     load "getInstitutionDetails"

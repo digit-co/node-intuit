@@ -9,29 +9,42 @@ module.exports = class IntuitClient
     [body, done] = [{}, body] if typeof(body) is "function"
     new Request(@options)[method]("#{BASE_URL}#{path}", body, done)
 
-  institutions: (done) ->
-    @request "get", "/institutions", done
+  institutions: (userId, done) ->
+    @options.userId = userId
+    @request "get", "/institutions", (err, response) ->
+      return done err if err
+      done err, response.institution
 
-  getInstitutionDetails: (institutionId, done) ->
+  getInstitutionDetails: (userId, institutionId, done) ->
+    @options.userId = userId
     @request "get", "/institutions/#{institutionId}", done
 
-  discoverAndAddAccounts: (institutionId, credentials, done) ->
+  discoverAndAddAccounts: (userId, institutionId, credentials, done) ->
+    @options.userId = userId
     @request "post", "/institutions/#{institutionId}/logins", credentials, done
 
-  getCustomerAccounts: (done) ->
-    @request "get", "/accounts", done
+  getCustomerAccounts: (userId, done) ->
+    @options.userId = userId
+    @request "get", "/accounts", (err, response) ->
+      return done err if err
+      done err, response.accounts
 
-  getAccount: (accountId, done) ->
+  getAccount: (userId, accountId, done) ->
+    @options.userId = userId
     @request "get", "/accounts/#{accountId}", done
 
-  getAccountTransactions: (accountId, startDate, endDate) ->
+  getAccountTransactions: (userId, accountId, startDate, endDate) ->
+    @options.userId = userId
     @request "get", "/accounts/#{accountId}/transactions", done
 
-  updateInstitutionLogin: (institutionId, loginId, credentials, done) ->
+  updateInstitutionLogin: (userId, institutionId, loginId, credentials, done) ->
+    @options.userId = userId
     @request "put", "/logins/#{loginId}?refresh=true", credentials, done
 
-  deleteAccount: (accountId, done) ->
+  deleteAccount: (userId, accountId, done) ->
+    @options.userId = userId
     @request "delete", "/accounts/#{accountId}", done
 
-  deleteCustomer: ->
+  deleteCustomer: (userId, done) ->
+    @options.userId = userId
     @request "delete", "/customers", done
