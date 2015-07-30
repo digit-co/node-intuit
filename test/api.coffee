@@ -26,7 +26,24 @@ describe "Intuit Client", ->
           done err
 
     describe "discoverAndAddAccounts", ->
-      it "should return newly created accounts"
+      before -> fixture.load "discoverAndAddAccounts"
+      it "should return newly created accounts", ->
+        loginDetails =
+          credentials:
+            credential: [
+              {
+                name: "Banking Userid"
+                value: "demo"
+              }
+
+              {
+                name: "Banking Password"
+                value: "go"
+              }
+            ]
+        intuit.discoverAndAddAccounts "userId", 100000, loginDetails, (err, accounts) ->
+          assert.equal accounts.length, 10
+          done err
 
     describe "mfa", ->
       it "should handle MFA"
@@ -42,7 +59,7 @@ describe "Intuit Client", ->
       before -> fixture.load "getAccount"
       it "should return an account", (done) ->
         intuit.getAccount "userId", 400107846787, (err, account) ->
-          assert.equal account.bankingAccountType, "CHECKING"
+          assert account.type
           done err
 
     describe "getAccountTransactions", ->

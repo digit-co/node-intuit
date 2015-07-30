@@ -72,6 +72,10 @@ fixtures =
     oauth()
     load "deleteCustomer"
 
+  discoverAndAddAccounts: ->
+    oauth()
+    load "discoverAndAddAccounts"
+
 module.exports =
   record: ->
     nock.recorder.rec

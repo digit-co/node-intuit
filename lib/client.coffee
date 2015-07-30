@@ -32,7 +32,9 @@ module.exports = class IntuitClient
 
   discoverAndAddAccounts: (userId, institutionId, credentials, done) ->
     @options.userId = userId
-    @request "post", "/institutions/#{institutionId}/logins", credentials, done
+    @request "post", "/institutions/#{institutionId}/logins", credentials, (err, response) ->
+      return done err if err
+      done err, response.accounts
 
   getCustomerAccounts: (userId, done) ->
     @options.userId = userId
