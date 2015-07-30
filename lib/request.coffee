@@ -1,4 +1,5 @@
 request = require "request"
+_ = require "lodash"
 debug = require("debug")("node-intuit:request")
 OAuth = require "./oauth"
 SAML_URL = "https://oauth.intuit.com/oauth/v1/get_access_token_by_saml"
@@ -27,14 +28,20 @@ module.exports = class Request
     method = if params.method is "DELETE" then params.method.toLowerCase()[0..2] else params.method.toLowerCase()
     requestMethod = request[method]
     requestMethod params, (err, response, body) ->
+      return done err if err
       debug "#{params.method} #{response.request.uri.path} - #{response.statusCode} #{response.statusMessage}"
       return done null, response.statusCode if response.statusCode is 200 and not body
-      try
-        parsed = JSON.parse body
-      catch e
-        err = e
-        parsed = body
-      done err, parsed
+      # MFA
+      if response.headers.challengesessionid
+        {challengenodeid, challengesessionid} = response.headers
+        done err, {accounts: _.merge(body, {challengenodeid, challengesessionid})}
+      else
+        try
+          parsed = JSON.parse body
+        catch e
+          err = e
+          parsed = body
+        done err, parsed
 
   get: (url, body, done) ->
     @_params "GET", url, (err, params) =>

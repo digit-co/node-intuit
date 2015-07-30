@@ -26,27 +26,54 @@ describe "Intuit Client", ->
           done err
 
     describe "discoverAndAddAccounts", ->
-      before -> fixture.load "discoverAndAddAccounts"
-      it "should return newly created accounts", ->
-        loginDetails =
-          credentials:
-            credential: [
-              {
-                name: "Banking Userid"
-                value: "demo"
-              }
+      describe "Single Factor Authentication", ->
+        before -> fixture.load "discoverAndAddAccounts"
+        it "should return newly created accounts", ->
+          loginDetails =
+            credentials:
+              credential: [
+                {
+                  name: "Banking Userid"
+                  value: "demo"
+                }
 
-              {
-                name: "Banking Password"
-                value: "go"
-              }
-            ]
-        intuit.discoverAndAddAccounts "userId", 100000, loginDetails, (err, accounts) ->
-          assert.equal accounts.length, 10
-          done err
+                {
+                  name: "Banking Password"
+                  value: "go"
+                }
+              ]
+          intuit.discoverAndAddAccounts "userId", 100000, loginDetails, (err, accounts) ->
+            assert.equal accounts.length, 10
+            done err
 
-    describe "mfa", ->
-      it "should handle MFA"
+      describe "Multi Factor Authentication", ->
+        before -> fixture.load "discoverAndAddAccountsMfa"
+        before (done) ->
+          loginDetails =
+            credentials:
+              credential: [
+                {
+                  name: "Banking Userid"
+                  value: "tfa_text"
+                }
+
+                {
+                  name: "Banking Password"
+                  value: "go"
+                }
+              ]
+          intuit.discoverAndAddAccounts "userId", 100000, loginDetails, (err, @mfa) =>
+            done err
+
+        it "should return a challenge node ID", ->
+          assert @mfa.challengenodeid
+        it "should return a challenge session ID", ->
+          assert @mfa.challengesessionid
+        it "should return the challenge to answer", ->
+          assert @mfa.challenge
+
+    describe "handleMfa", ->
+      it "should handle challenge MFA answers"
 
     describe "getCustomerAccounts", ->
       before -> fixture.load "getCustomerAccounts"

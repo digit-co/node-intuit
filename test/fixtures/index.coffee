@@ -76,6 +76,10 @@ fixtures =
     oauth()
     load "discoverAndAddAccounts"
 
+  discoverAndAddAccountsMfa: ->
+    oauth()
+    load "discoverAndAddAccountsMfa"
+
 module.exports =
   record: ->
     nock.recorder.rec
