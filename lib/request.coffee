@@ -44,13 +44,15 @@ module.exports = class Request
   post: (url, body, done) ->
     @_params "POST", url, (err, params) =>
       return done err if err
-      params.form = body
+      params.body = body
+      params.json = true
       @request params, done
 
   put: (url, body, done) ->
     @_params "PUT", url, (err, params) =>
       return done err if err
-      params.form = body
+      params.body = body
+      params.json = true
       @request params, done
 
   delete: (url, body, done) ->
