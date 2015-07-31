@@ -66,9 +66,9 @@ describe "Intuit Client", ->
             done err
 
         it "should return a challenge node ID", ->
-          assert @mfa.challengenodeid
+          assert @mfa.challengeNodeId
         it "should return a challenge session ID", ->
-          assert @mfa.challengesessionid
+          assert @mfa.challengeSessionId
         it "should return the challenge to answer", ->
           assert @mfa.challenge
 

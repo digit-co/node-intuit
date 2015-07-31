@@ -34,7 +34,10 @@ module.exports = class IntuitClient
     @options.userId = userId
     @request "post", "/institutions/#{institutionId}/logins", credentials, (err, response) ->
       return done err if err
-      done err, response.accounts
+      if response.challenge
+        done err, response
+      else
+        done err, response.accounts
 
   handleMfa: (userId, institutionId, challengeSessionId, challengeNodeId, answers, done) ->
     @options.headers =

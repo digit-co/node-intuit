@@ -36,7 +36,7 @@ module.exports = class Request
       return done err, response.statusCode if response.statusCode is 200 and not body
       return done err, body unless response.statusCode is 401
       {challengenodeid, challengesessionid} = response.headers
-      done err, {accounts: _.merge(body, {challengeNodeId: challengenodeid, challengeSessionId: challengesessionid})}
+      done err, {challenge: body.challenge, challengeNodeId: challengenodeid, challengeSessionId: challengesessionid}
 
   get: (url, body, done) ->
     @_params "GET", url, (err, params) =>
