@@ -20,7 +20,7 @@ config =
   certificate: fs.readFileSync path.join(__dirname, "app.crt"), "utf8"
   certificatePassword: "password"
 
-intuit = require("intuit")(config)
+intuit = require("node-intuit")(config)
 
 intuit.getInstitutionDetails userId, 100000, (err, institutionDetails) ->
   console.log institutionDetails
@@ -40,4 +40,4 @@ for all APIs with expected responses.
 
 `npm test`
 
-Debug with `DEBUG=intuit*`.
+Debug with `DEBUG=node-intuit*`.
