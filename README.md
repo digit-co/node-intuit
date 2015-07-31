@@ -1,8 +1,11 @@
 # node-intuit
 
-WIP `npm` port of https://github.com/cloocher/aggcat
+## Synopsis
 
-### Basic Usage
+Inspired by https://github.com/cloocher/aggcat, this is a node module for interacting
+with Intuit's Customer Account Data (CAD) API.
+
+## Code Example
 
 ```coffeescript
 fs = require "fs"
@@ -23,5 +26,18 @@ intuit.getInstitutionDetails userId, 100000, (err, institutionDetails) ->
   console.log institutionDetails
   process.exit()
 ```
+
+## Installation
+
+`npm install --save node-intuit`
+
+## API Reference
+
+See the [tests](https://github.com/hellodigit/node-intuit/blob/master/test/api.coffee)
+for all APIs with expected responses.
+
+## Tests
+
+`npm test`
 
 Debug with `DEBUG=intuit*`.
