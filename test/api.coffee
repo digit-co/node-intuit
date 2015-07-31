@@ -73,7 +73,32 @@ describe "Intuit Client", ->
           assert @mfa.challenge
 
     describe "handleMfa", ->
-      it "should handle challenge MFA answers"
+      before -> fixture.load "discoverAndAddAccountsMfa"
+      before -> fixture.load "handleMfa"
+      before (done) ->
+        loginDetails =
+          credentials:
+            credential: [
+              {
+                name: "Banking Userid"
+                value: "tfa_text"
+              }
+
+              {
+                name: "Banking Password"
+                value: "go"
+              }
+            ]
+        intuit.discoverAndAddAccounts "userId", 100000, loginDetails, (err, response) =>
+          {challenge, challengeSessionId, challengeNodeId} = response
+          answers =
+            challengeResponses:
+              response: ["answer"]
+          intuit.handleMfa "userId", 100000, challengeSessionId, challengeNodeId, answers, (err, @accounts) =>
+            done err
+
+      it "should handle challenge MFA answers and return accounts", ->
+        assert.equal @accounts.length, 10
 
     describe "getCustomerAccounts", ->
       before -> fixture.load "getCustomerAccounts"

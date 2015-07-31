@@ -11,17 +11,20 @@ module.exports = class Request
   _params: (method, url, done) ->
     @oauth.getToken (err, token, tokenSecret) =>
       return done err if err
+      optionalHeaders = @options.headers or {}
+      headers =
+        "Content-Type": "application/json"
+        "Accept": "application/json"
       params =
         method: method
         uri: url
-        headers:
-          "Content-Type": "application/json"
-          "Accept": "application/json"
+        json: true
         oauth:
           consumer_key: @options.consumerKey
           consumer_secret: @options.consumerSecret
           token: token
           token_secret: tokenSecret
+      params.headers = _.merge headers, optionalHeaders
       done err, params
 
   request: (params, done) ->
@@ -30,18 +33,10 @@ module.exports = class Request
     requestMethod params, (err, response, body) ->
       return done err if err
       debug "#{params.method} #{response.request.uri.path} - #{response.statusCode} #{response.statusMessage}"
-      return done null, response.statusCode if response.statusCode is 200 and not body
-      # MFA
-      if response.headers.challengesessionid
-        {challengenodeid, challengesessionid} = response.headers
-        done err, {accounts: _.merge(body, {challengenodeid, challengesessionid})}
-      else
-        try
-          parsed = JSON.parse body
-        catch e
-          err = e
-          parsed = body
-        done err, parsed
+      return done err, response.statusCode if response.statusCode is 200 and not body
+      return done err, body unless response.statusCode is 401
+      {challengenodeid, challengesessionid} = response.headers
+      done err, {accounts: _.merge(body, {challengeNodeId: challengenodeid, challengeSessionId: challengesessionid})}
 
   get: (url, body, done) ->
     @_params "GET", url, (err, params) =>
@@ -52,14 +47,12 @@ module.exports = class Request
     @_params "POST", url, (err, params) =>
       return done err if err
       params.body = body
-      params.json = true
       @request params, done
 
   put: (url, body, done) ->
     @_params "PUT", url, (err, params) =>
       return done err if err
       params.body = body
-      params.json = true
       @request params, done
 
   delete: (url, body, done) ->

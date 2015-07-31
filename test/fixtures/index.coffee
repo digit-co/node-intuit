@@ -80,6 +80,10 @@ fixtures =
     oauth()
     load "discoverAndAddAccountsMfa"
 
+  handleMfa: ->
+    oauth()
+    load "handleMfa"
+
 module.exports =
   record: ->
     nock.recorder.rec
