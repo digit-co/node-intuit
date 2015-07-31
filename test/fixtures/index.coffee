@@ -84,6 +84,10 @@ fixtures =
     oauth()
     load "handleMfa"
 
+  updateInstitutionLogin: ->
+    oauth()
+    load "updateInstitutionLogin"
+
 module.exports =
   record: ->
     nock.recorder.rec

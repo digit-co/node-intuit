@@ -143,7 +143,25 @@ describe "Intuit Client", ->
             done err
 
     describe "updateInstitutionLogin", ->
-      it "should update bank credentials"
+      before -> fixture.load "updateInstitutionLogin"
+      it "should update bank credentials", ->
+        loginId = 1281950108
+        loginDetails =
+          credentials:
+            credential: [
+              {
+                name: "Banking Userid"
+                value: "demo"
+              }
+
+              {
+                name: "Banking Password"
+                value: "go"
+              }
+            ]
+        intuit.updateInstitutionLogin "userId", 100000, loginId, loginDetails, (err, accounts) ->
+          assert.equal accounts.length, 10
+          done err
 
     describe "deleteAccount", ->
       before -> fixture.load "deleteAccount"

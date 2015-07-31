@@ -1,0 +1,30 @@
+[
+  {
+    "scope": "https://financialdatafeed.platform.intuit.com:443",
+    "method": "GET",
+    "path": "/v1/accounts/400107846787",
+    "body": {
+      "credentials": {
+        "credential": [
+          {
+            "name": "Banking Userid",
+            "value": "direct"
+          },
+          {
+            "name": "Banking Password",
+            "value": "go"
+          }
+        ]
+      }
+    },
+    "status": 200,
+    "response": "",
+    "headers": {
+      "date": "Tue, 28 Jul 2015 18:32:49 GMT",
+      "content-type": "text/plain",
+      "content-length": "0",
+      "intuit_tid": "gw-1e6def67-b82b-4317-981c-d2e7bed343c8",
+      "connection": "close"
+    }
+  }
+]
