@@ -1,3 +1,4 @@
+debug = require("debug")("node-intuit:oauth")
 request = require "request"
 Saml = require "./saml"
 
@@ -22,7 +23,8 @@ module.exports = class OAuth
         "Authorization": "OAuth oauth_consumer_key=\"#{@options.consumerKey}\""
       form:
         saml_assertion: @saml
-    request.post params, (err, response, body) =>
+    request params, (err, response, body) =>
       return done err if err
+      debug "#{params.method} #{response.request.uri.path} - #{response.statusCode} #{response.statusMessage}"
       oauth = @parseResponse body
       done err, oauth.token, oauth.tokenSecret

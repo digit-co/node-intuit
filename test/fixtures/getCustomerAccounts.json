@@ -1,0 +1,55 @@
+[
+  {
+    "scope": "https://financialdatafeed.platform.intuit.com:443",
+    "method": "GET",
+    "path": "/v1/accounts",
+    "body": "",
+    "status": 200,
+    "response": {
+      "accounts": [
+      {
+        "type": "bankingAccount",
+        "bankingAccountType": "CHECKING",
+        "currencyCode": "BND",
+        "status": "ACTIVE",
+        "balanceDate": 1438066800000,
+        "lastTxnDate": 1437894000000,
+        "accountId": 400107846787,
+        "accountNumber": "1000001111",
+        "accountNickname": "My Checking",
+        "displayPosition": 6,
+        "institutionId": 100000,
+        "balanceAmount": 728.05,
+        "aggrSuccessDate": 1438131959943,
+        "aggrAttemptDate": 1438131959943,
+        "aggrStatusCode": "0",
+        "institutionLoginId": 1275950117
+      },
+      {
+        "type": "bankingAccount",
+        "bankingAccountType": "SAVINGS",
+        "currencyCode": "INR",
+        "status": "ACTIVE",
+        "balanceDate": 1438066800000,
+        "lastTxnDate": 1437894000000,
+        "accountId": 400107846795,
+        "accountNumber": "1000002222",
+        "accountNickname": "My Savings",
+        "displayPosition": 7,
+        "institutionId": 100000,
+        "balanceAmount": 728.05,
+        "aggrSuccessDate": 1438131959943,
+        "aggrAttemptDate": 1438131959943,
+        "aggrStatusCode": "0",
+        "institutionLoginId": 1275950117
+      }
+    ]},
+    "headers": {
+      "date": "Tue, 28 Jul 2015 18:32:49 GMT",
+      "content-type": "text/plain",
+      "content-length": "0",
+      "intuit_tid": "gw-1e6def67-b82b-4317-981c-d2e7bed343c8",
+      "connection": "close"
+    }
+  }
+]

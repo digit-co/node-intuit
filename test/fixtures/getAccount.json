@@ -1,0 +1,37 @@
+[
+  {
+    "scope": "https://financialdatafeed.platform.intuit.com:443",
+    "method": "GET",
+    "path": "/v1/accounts/400107846787",
+    "body": "",
+    "status": 200,
+    "response": {
+      "accounts": [
+        {
+          "type": "bankingAccount",
+          "bankingAccountType": "CHECKING",
+          "accountId": 400107846787,
+          "currencyCode": "BND",
+          "balanceDate": 1438066800000,
+          "lastTxnDate": 1437894000000,
+          "status": "ACTIVE",
+          "accountNumber": "1000001111",
+          "accountNickname": "My Checking",
+          "displayPosition": 6,
+          "institutionId": 100000,
+          "balanceAmount": 728.5,
+          "aggrSuccessDate": 1438149031166,
+          "aggrAttemptDate": 1438149031166,
+          "aggrStatusCode": "0",
+          "institutionLoginId": 1275950117
+        }
+    ]},
+    "headers": {
+      "date": "Tue, 28 Jul 2015 18:32:49 GMT",
+      "content-type": "text/plain",
+      "content-length": "0",
+      "intuit_tid": "gw-1e6def67-b82b-4317-981c-d2e7bed343c8",
+      "connection": "close"
+    }
+  }
+]
