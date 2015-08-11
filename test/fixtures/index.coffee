@@ -80,6 +80,10 @@ fixtures =
     oauth()
     load "discoverAndAddAccountsMfa"
 
+  discoverAndAddAccountsWrongPassword: ->
+    oauth()
+    load "discoverAndAddAccountsWrongPassword"
+
   handleMfa: ->
     oauth()
     load "handleMfa"
