@@ -67,6 +67,27 @@ describe "Intuit Client", ->
             assert /Login error/.test err.message
             done null
 
+      describe "Single Factor Authentication With Rate Limiting Error", ->
+        before -> fixture.load "discoverAndAddAccountsRateLimit"
+        it "should return an error with the details", (done) ->
+          loginDetails =
+            credentials:
+              credential: [
+                {
+                  name: "Banking Userid"
+                  value: "bad"
+                }
+
+                {
+                  name: "Banking Password"
+                  value: "go"
+                }
+              ]
+          intuit.discoverAndAddAccounts "userId", 100000, loginDetails, (err, accounts) ->
+            assert err
+            assert /throttling/.test err.message
+            done null
+
       describe "Multi Factor Authentication", ->
         before -> fixture.load "discoverAndAddAccountsMfa"
         before (done) ->

@@ -84,6 +84,10 @@ fixtures =
     oauth()
     load "discoverAndAddAccountsWrongPassword"
 
+  discoverAndAddAccountsRateLimit: ->
+    oauth()
+    load "discoverAndAddAccountsRateLimit"
+
   handleMfa: ->
     oauth()
     load "handleMfa"
