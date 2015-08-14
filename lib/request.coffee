@@ -33,10 +33,16 @@ module.exports = class Request
     requestMethod params, (err, response, body) ->
       return done err if err
       debug "#{params.method} #{response.request.uri.path} - #{response.statusCode} #{response.statusMessage}"
-      return done err, response.statusCode if response.statusCode is 200 and not body
-      return done err, body unless response.statusCode is 401
-      {challengenodeid, challengesessionid} = response.headers
-      done err, {challenge: body.challenge, challengeNodeId: challengenodeid, challengeSessionId: challengesessionid}
+      if response.statusCode is 503
+        return done new Error "#{response.body.errorInfo[0].errorCode} - #{response.body.errorInfo[0].errorMessage}"
+      else if response.statusCode is 401
+        {challengenodeid, challengesessionid} = response.headers
+        done err, {challenge: body.challenge, challengeNodeId: challengenodeid, challengeSessionId: challengesessionid}
+      else if response.statusCode is 429
+        done new Error "API requests have exceeded the throttling limit."
+      else
+        return done err, body if body
+        done err, response.statusCode
 
   get: (url, body, done) ->
     @_params "GET", url, (err, params) =>

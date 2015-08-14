@@ -1,9 +1,22 @@
 [
   {
     "scope": "https://financialdatafeed.platform.intuit.com:443",
-    "method": "GET",
-    "path": "/v1/accounts/400107846787",
-    "body": "",
+    "method": "POST",
+    "path": "/v1/institutions/100000/logins",
+    "body": {
+      "credentials": {
+        "credential": [
+          {
+            "name": "Banking Userid",
+            "value": "demo"
+          },
+          {
+            "name": "Banking Password",
+            "value": "go"
+          }
+        ]
+      }
+    },
     "status": 200,
     "response": {
       "accounts": [
