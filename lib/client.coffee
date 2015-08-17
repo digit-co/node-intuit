@@ -13,6 +13,12 @@ formatDate = (date) ->
   day = zeroBased date.getDate()
   "#{year}-#{month}-#{day}"
 
+handleAccountsResponse = (response, done) ->
+  if response.challenge
+    done null, response
+  else
+    done null, response.accounts
+
 module.exports = class IntuitClient
   constructor: (@options) ->
 
@@ -34,10 +40,7 @@ module.exports = class IntuitClient
     @options.userId = userId
     @request "post", "/institutions/#{institutionId}/logins", credentials, (err, response) ->
       return done err if err
-      if response.challenge
-        done err, response
-      else
-        done err, response.accounts
+      handleAccountsResponse response, done
 
   handleMfa: (userId, institutionId, challengeSessionId, challengeNodeId, answers, done) ->
     @options.headers =
@@ -82,7 +85,9 @@ module.exports = class IntuitClient
 
   updateInstitutionLogin: (userId, institutionId, loginId, credentials, done) ->
     @options.userId = userId
-    @request "put", "/logins/#{loginId}?refresh=true", credentials, done
+    @request "put", "/logins/#{loginId}?refresh=true", credentials, (err, response) ->
+      return done err if err
+      handleAccountsResponse response, done
 
   deleteAccount: (userId, accountId, done) ->
     @options.userId = userId

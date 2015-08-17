@@ -144,7 +144,7 @@ describe "Intuit Client", ->
 
     describe "updateInstitutionLogin", ->
       before -> fixture.load "updateInstitutionLogin"
-      it "should update bank credentials", ->
+      it "should update bank credentials", (done) ->
         loginId = 1281950108
         loginDetails =
           credentials:
