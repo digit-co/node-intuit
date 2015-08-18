@@ -1,6 +1,6 @@
 {
   "name": "node-intuit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Client for Intuit's Customer Account Data API",
   "main": "index.js",
   "scripts": {
