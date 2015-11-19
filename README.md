@@ -1,5 +1,7 @@
 # node-intuit
 
+This branch is used for the Digit interview process.
+
 ## Synopsis
 
 Inspired by https://github.com/cloocher/aggcat, this is a node module for interacting
