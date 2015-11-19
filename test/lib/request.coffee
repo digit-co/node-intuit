@@ -15,9 +15,9 @@ describe "JSON Authentication", ->
         done null
 
     it "should use OAuth data to sign request", ->
-      assert @spy.calledArgs[0][0].oauth.consumer_key
-      assert @spy.calledArgs[0][0].oauth.consumer_secret
-      assert @spy.calledArgs[0][0].oauth.token
-      assert @spy.calledArgs[0][0].oauth.token_secret
+      assert typeof @spy.calledArgs[0][0].oauth.consumer_key is "string"
+      assert typeof @spy.calledArgs[0][0].oauth.consumer_secret is "string"
+      assert typeof @spy.calledArgs[0][0].oauth.token_secret is "string"
+      assert typeof @spy.calledArgs[0][0].oauth.token is "string"
     it "should make a signed request for JSON without error", ->
       assert.equal @err, null

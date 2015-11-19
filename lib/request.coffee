@@ -37,7 +37,7 @@ module.exports = class Request
         return done new Error "#{response.body.errorInfo[0].errorCode} - #{response.body.errorInfo[0].errorMessage}"
       else if response.statusCode is 401
         {challengenodeid, challengesessionid} = response.headers
-        done err, {challenge: body.challenge, challengeNodeId: challengenodeid, challengeSessionId: challengesessionid}
+        done err, {challenge: body.challenge, challengenodeid, challengesessionid}
       else if response.statusCode is 429
         done new Error "API requests have exceeded the throttling limit."
       else

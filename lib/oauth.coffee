@@ -12,7 +12,7 @@ module.exports = class OAuth
   parseResponse: (responseBody) ->
     [oauthTokenSecret, oauthToken] = responseBody.split "&"
     tokenSecret = oauthTokenSecret?.split("=")?[1]
-    token = oauthToken?.split("=")?[1]
+    token = oauthToken?.split("=")
     return {token, tokenSecret}
 
   getToken: (done) ->
